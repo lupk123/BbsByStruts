@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="bbs2016_default" extends="struts-default">
+        <global-results>
+            <result name="error">/error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"></exception-mapping>
+        </global-exception-mappings>
+    </package>
+
+    <package name="admin" namespace="/admin" extends="bbs2016_default">
+        <default-action-ref name="index"/>
+        <action name="index" class="com.bbs.action.UserAction" method="login">
+            <result name="login">
+                /admin/Category_list.jsp
+            </result>
+        </action>
+        <action name="*_*" class="com.bbs.action.{1}Action" method="{2}">
+            <result>/admin/{1}_{2}.jsp</result>
+            <result name="login">/admin/{1}_{2}.jsp</result>
+        </action>
+    </package>
+    
+    <package name="default" namespace="/" extends="bbs2016_default">
+        <action name="index" class="com.bbs.action.CategoryAction" method="list">
+            <result>/index.jsp</result>
+        </action>
+    </package> 
+</struts>
